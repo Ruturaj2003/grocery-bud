@@ -1,16 +1,23 @@
 import { useState } from 'react';
 
-const Form = () => {
+const Form = ({ addItem }) => {
   const [newItemName, setNewItemName] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (newItemName === '') {
+      console.log('EMPT');
+      return;
+    }
+    addItem(newItemName);
+    setNewItemName('');
     console.log(newItemName);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form id="main-from" onSubmit={handleSubmit}>
       <h4>Grocery bud</h4>
       <div className="form-control">
         <input
+          name="newItemName"
           type="text"
           className="form-input"
           value={newItemName}
