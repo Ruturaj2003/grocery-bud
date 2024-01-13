@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Form from './Form';
 import { nanoid } from 'nanoid';
 import Items from './Items';
+import { ToastContainer, toast } from 'react-toastify';
 
 // Since it is not related to app component it is written here , in App component also it works fine
 const seLocalStorage = (items) => {
@@ -22,9 +23,13 @@ const App = () => {
 
     setItems(newItems);
     seLocalStorage(newItems);
+    toast.success(`${newItem.name} added to the list`);
   };
   const removeItem = (itemId) => {
     const newItems = items.filter((item) => item.id !== itemId);
+    const removedItem = items.find((item) => item.id === itemId);
+    console.log(removeItem);
+    toast.success(`${removedItem.name} removed from the list`);
     setItems(newItems);
     seLocalStorage(newItems);
   };
@@ -35,6 +40,7 @@ const App = () => {
         const newItem = { ...item, completed: !item.completed };
         return newItem;
       }
+
       return item;
     });
     setItems(newItems);
@@ -43,6 +49,7 @@ const App = () => {
 
   return (
     <section className="section-center">
+      <ToastContainer pauseOnFocusLoss={false} position="top-right" />
       <Form addItem={addItem}></Form>
       <Items items={items} removeItem={removeItem} editItem={editItem}></Items>
     </section>
