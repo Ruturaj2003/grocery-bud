@@ -10,7 +10,6 @@ const Form = ({ addItem }) => {
     }
     addItem(newItemName);
     setNewItemName('');
-    console.log(newItemName);
   };
   return (
     <form id="main-from" onSubmit={handleSubmit}>
